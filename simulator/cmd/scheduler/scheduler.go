@@ -10,11 +10,15 @@ import (
 	_ "k8s.io/component-base/metrics/prometheus/version" // for version metric registration
 	"k8s.io/klog"
 
+	cssa "cssa-kube-scheduler-simulator/simulator/cssa"
+
 	"sigs.k8s.io/kube-scheduler-simulator/simulator/pkg/debuggablescheduler"
 )
 
 func main() {
-	command, cancelFn, err := debuggablescheduler.NewSchedulerCommand()
+	command, cancelFn, err := debuggablescheduler.NewSchedulerCommand(
+		debuggablescheduler.WithPlugin(cssa.Name, cssa.New),
+	)
 	if err != nil {
 		klog.Info(fmt.Sprintf("failed to build the debuggablescheduler command: %+v", err))
 		os.Exit(1)

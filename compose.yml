@@ -14,6 +14,8 @@ services:
       - KUBECONFIG=/config/kubeconfig.yaml
     volumes:
       - conf:/config
+      - ./simulator/cmd/scheduler/kubeconfig.yaml:/config/kubeconfig.yaml
+      - ./simulator/cmd/scheduler/scheduler.yaml:/config/scheduler.yaml
     depends_on:
       - init-container
       - simulator-cluster

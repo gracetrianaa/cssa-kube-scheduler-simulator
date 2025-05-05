@@ -5,10 +5,13 @@ import (
 	configv1 "k8s.io/kube-scheduler/config/v1"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins"
 	"k8s.io/kubernetes/pkg/scheduler/framework/runtime"
+	"sigs.k8s.io/kube-scheduler-simulator/simulator/cssa"
+	// "sigs.k8s.io/kube-scheduler-simulator/simulator/cssa"
 )
 
 var outOfTreeRegistries = runtime.Registry{
 	// TODO(user): add your plugins registries here.
+	cssa.Name: cssa.New,
 }
 
 // RegisteredMultiPointPluginNames returns all registered multipoint plugin names.

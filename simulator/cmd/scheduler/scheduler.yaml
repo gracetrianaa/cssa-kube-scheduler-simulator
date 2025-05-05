@@ -1,2 +1,16 @@
 kind: KubeSchedulerConfiguration
 apiVersion: kubescheduler.config.k8s.io/v1
+clientConnection:
+  kubeconfig: /config/kubeconfig.yaml
+profiles:
+  - schedulerName: cssa-scheduler
+    plugins:
+      multiPoint:
+        enabled:
+          - name: CSSA
+    pluginConfig:
+    - name: CSSA
+      args:
+        populationSize: 30
+        maxIterations: 100
+         
