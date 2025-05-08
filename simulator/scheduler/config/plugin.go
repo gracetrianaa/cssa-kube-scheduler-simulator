@@ -1,6 +1,8 @@
 package config
 
 import (
+	"sigs.k8s.io/kube-scheduler-simulator/simulator/cssa"
+
 	"golang.org/x/xerrors"
 	configv1 "k8s.io/kube-scheduler/config/v1"
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins"
@@ -9,6 +11,7 @@ import (
 
 var outOfTreeRegistries = runtime.Registry{
 	// TODO(user): add your plugins registries here.
+	cssa.Name: cssa.New,
 }
 
 // RegisteredMultiPointPluginNames returns all registered multipoint plugin names.

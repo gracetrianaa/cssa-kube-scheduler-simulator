@@ -16,7 +16,10 @@ limitations under the License.
 
 package v1alpha1
 
-import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+)
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
@@ -68,4 +71,21 @@ type SimulatorConfiguration struct {
 	// This variable indicates whether an external scheduler
 	// is used.
 	ExternalSchedulerEnabled bool `json:"externalSchedulerEnabled,omitempty"`
+}
+
+type CSSAArgs struct {
+	metav1.TypeMeta
+
+	// PopulationSize defines the size of the population for CSSA algorithm
+	PopulationSize int `json:"populationSize,omitempty"`
+
+	// MaxIterations defines the maximum number of iterations for CSSA algorithm
+	MaxIterations int `json:"maxIterations,omitempty"`
+}
+
+
+// GetObjectKind implements runtime.Object.
+// Subtle: this method shadows the method (TypeMeta).GetObjectKind of CSSAArgs.TypeMeta.
+func (c *CSSAArgs) GetObjectKind() schema.ObjectKind {
+	panic("unimplemented")
 }
